@@ -39,3 +39,40 @@ module test1;
 		$display("the values are:%p",obj.a);
 	end
 endmodule
+
+
+//==========================================================================OPTIONAL================================================================================//
+
+	class test;
+		int da[12];
+		int i,x=0;
+
+	function post();
+		 
+	while(i<$size(da)) 
+		begin
+		for(int j=0;j<=x;j++)
+			begin
+				da[i]=1;
+				i++;
+			end
+
+		for(int j=0;j<=x;j++)
+			begin
+				da[i]=0;
+				i++;			
+			end
+		x++;	
+	end
+	endfunction
+
+	endclass
+
+	module test1;
+		test obj;
+		initial begin
+			obj=new();
+			obj.post();
+		$display("the values are :%p ",obj.da);
+		end
+	endmodule
