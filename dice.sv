@@ -59,3 +59,63 @@ module test;
 	
 	end
 endmodule
+
+
+
+
+
+
+
+========================================
+
+
+
+class dice;
+
+  rand int player[5][5];
+
+  constraint c {
+    foreach(player[i,j])
+      player[i][j] inside {[1:6]};
+  }
+
+endclass
+
+
+module test;
+
+  dice obj;
+  int sum[5];
+  int max;
+  int winner;
+
+  initial begin
+    obj = new();
+    assert(obj.randomize());
+
+    // Print values
+    foreach(obj.player[i]) begin
+      $display("Player%0d values = %p", i+1, obj.player[i]);
+      sum[i] = obj.player[i].sum();
+      $display("Player%0d Sum = %0d", i+1, sum[i]);
+    end
+
+    $display("====================================");
+
+    // Find highest
+    max = sum[0];
+    winner = 1;
+
+    foreach(sum[i]) begin
+      if(sum[i] > max) begin
+        max = sum[i];
+        winner = i+1;
+      end
+    end
+
+    $display("Winner is Player%0d with Sum = %0d", winner, max);
+
+  end
+
+endmodule
+
